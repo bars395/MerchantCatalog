@@ -1,0 +1,23 @@
+{
+  "products": [
+    {
+      "id": 31,
+      "title": "Brass Desk Organizer",
+      "price": 12.0,
+      "stock": 3,
+      "sku": "MATCH-ONLY-SKU",
+      "description": "Local catalog search fixture."
+    },
+    {
+      "id": 44,
+      "title": "Ceramic Vase",
+      "price": 9.0,
+      "stock": 8,
+      "sku": "OTHER-ITEM",
+      "description": "Second local catalog search fixture."
+    }
+  ],
+  "total": 2,
+  "skip": 0,
+  "limit": 0
+}

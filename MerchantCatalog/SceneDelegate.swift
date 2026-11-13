@@ -1,9 +1,20 @@
 import UIKit
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    var window: UIWindow?
-    var applicationCoordinator: ApplicationCoordinator?
+@MainActor
+final class SceneDelegate: UIResponder {
 
+    // MARK: - Public Properties
+
+    var window: UIWindow?
+
+    // MARK: - Private Properties
+
+    private var catalogFlow: CatalogFlow?
+}
+
+// MARK: - UIWindowSceneDelegate
+
+extension SceneDelegate: UIWindowSceneDelegate {
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -11,13 +22,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
 
-        let navigationController = UINavigationController()
-        let coordinator = ApplicationCoordinator(navigationController: navigationController)
-        applicationCoordinator = coordinator
-        coordinator.startFlow()
-
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = navigationController
+        let environment = ProcessInfo.processInfo.environment
+        if environment["XCInjectBundleInto"] != nil || environment["XCTestConfigurationFilePath"] != nil {
+            // Unit tests create their own flows backed by local fixtures.
+            window.rootViewController = UIViewController()
+        } else {
+            let navigationController = UINavigationController()
+            let flow = CatalogFlow(router: Router(navigationController: navigationController))
+            catalogFlow = flow
+            flow.start()
+            window.rootViewController = navigationController
+        }
         window.makeKeyAndVisible()
         self.window = window
     }

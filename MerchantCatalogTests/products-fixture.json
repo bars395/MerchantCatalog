@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "id": 101,
+      "title": "Sample Merchant Product",
+      "price": 19.95,
+      "stock": 7,
+      "sku": "SAMPLE-101",
+      "description": "Synthetic fixture product for decoding tests.",
+      "thumbnail": "https://example.invalid/images/sample-101.png"
+    }
+  ],
+  "total": 1,
+  "skip": 0,
+  "limit": 0
+}
